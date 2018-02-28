@@ -2,7 +2,7 @@ package com.problem;
 
 public interface IProblem
 {
-    void setInput(String s);
-    void runTest();
-    String getResult();
+    public void setInput(String s);
+    public void runTest();
+    public void printResult();
 }

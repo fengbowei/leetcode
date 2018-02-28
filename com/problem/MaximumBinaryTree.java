@@ -5,6 +5,69 @@ import java.util.*;
 
 public class MaximumBinaryTree implements IProblem
 {
+    int[] m_nums;
+    TreeNode m_result;
+    public void setInput(String s)
+    {
+        s = s.replace("[", "");
+        s = s.replace("]", "");
+        String sarray[]= s.split(",");
+        m_nums = new int[sarray.length];
+        for(int i = 0; i < sarray.length; i++)
+        {
+            m_nums[i] = Integer.parseInt(sarray[i]);
+        }
+        System.out.print("input: [");
+        for(int i = 0; i < m_nums.length; i++)
+        {
+            System.out.print(m_nums[i]);
+            System.out.print(',');
+        }
+        System.out.println("]");
+    }
+    
+    public void runTest()
+    {
+        m_result = constructMaximumBinaryTree(m_nums);
+    }
+
+    public void printResult()
+    {
+        System.out.print("Output: ");
+        bfs_print(m_result);   
+    }
+    
+    public void bfs_print(TreeNode head)
+    {
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        Queue<TreeNode> tmp_q = new LinkedList<TreeNode>();
+        q.add(head);
+        System.out.print('[');
+        while(!q.isEmpty())
+        {
+            while(!q.isEmpty())
+            {
+                TreeNode tmp_node = q.poll();
+                if(tmp_node == null)
+                {
+                    System.out.print("null");
+                }
+                else
+                {
+                    System.out.print(tmp_node.val);
+                    if(tmp_node.left != null || tmp_node.right != null)
+                    {
+                        tmp_q.add(tmp_node.left);
+                        tmp_q.add(tmp_node.right);
+                    }
+                }
+                System.out.print(',');
+            }
+            q = tmp_q;
+        }
+        System.out.println(']');
+    }
+
     public class TreeNode 
     {
         int val;
